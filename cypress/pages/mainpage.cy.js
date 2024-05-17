@@ -30,6 +30,14 @@ class MainPage {
 
         return new LoggedUserPage();
     }
+
+    validateGeneralErrorMessage() {
+        cy.get("div[class='alert alert-danger'] > p").should('have.text', 'There is 1 error');
+    }
+
+    validateInvalidPasswordError() {
+        cy.get("div[class='alert alert-danger'] > ol > li").should('have.text', 'Invalid password.');
+    }
 }
 
 export default MainPage;
