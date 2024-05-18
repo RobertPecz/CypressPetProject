@@ -1,11 +1,18 @@
+import URL from "../fixtures/urls.json";
+import loginData from '../fixtures/login.json';
+
 class LoggedUserPage {
 
+    elements = {
+        loggedInUsernameLabel : () => cy.get("a[title='View my customer account'] > span")
+    }
+
     ValidateUserLoggedInURL() {
-        cy.url().should('eq', 'http://www.automationpractice.pl/index.php?controller=my-account');
+        cy.url().should("eq", URL.mainpageURL);
     }
 
     ValidateUserLoggedInUsername() {
-        cy.get("a[title='View my customer account'] > span").should('have.text', 'Robert Pecz');
+        this.elements.loggedInUsernameLabel.should("have.text", loginData.loggedInUserName);
     }
 }
 

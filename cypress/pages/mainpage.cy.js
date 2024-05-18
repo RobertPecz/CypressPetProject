@@ -1,25 +1,36 @@
 import LoggedUserPage from "./loggedUserPage.cy";
+import URL from "../fixtures/urls.json";
+import errorMessages from "../fixtures/errorMessages.json";
 
 class MainPage {
 
+    elements = {
+        signInButton : () => cy.get("a[title='Log in to your customer account']"),
+        usernameTextbox : () => cy.get("input#email"),
+        passwordTextbox : () => cy.get("input#passwd"),
+        loginButton : () => cy.get("button#SubmitLogin"),
+        generalErrorLabel : () => cy.get("div[class='alert alert-danger'] > p"),
+        invalidPasswordErrorLabel : () => cy.get("div[class='alert alert-danger'] > ol > li")
+    }
+
     visit() {
-        cy.visit("http://www.automationpractice.pl/index.php");
+        cy.visit(URL.loggedInUserURL);
     }
 
     clickOnSignInButton() {
-        cy.get("a[title='Log in to your customer account']").click();
+        this.elements.signInButton.click();
     }
 
     populateUserNameField(username) {
-        cy.get("input#email").type(username);
+        this.elements.usernameTextbox.type(username);
     }
 
     populatePasswordField(password) {
-        cy.get("input#passwd").type(password);
+        this.elements.passwordTextbox.type(password);
     }
 
     submitLoginButton() {
-        cy.get("button#SubmitLogin").click();
+        this.elements.loginButton.click();
     }
 
     loginToPage(username, password) {
@@ -32,11 +43,11 @@ class MainPage {
     }
 
     validateGeneralErrorMessage() {
-        cy.get("div[class='alert alert-danger'] > p").should('have.text', 'There is 1 error');
+        this.elements.generalErrorLabel.should("have.text", errorMessages.generalErrorMessage);
     }
 
     validateInvalidPasswordError() {
-        cy.get("div[class='alert alert-danger'] > ol > li").should('have.text', 'Invalid password.');
+        this.elements.invalidPasswordErrorLabel.should("have.text", errorMessages.invalidPasswordErrorMessage);
     }
 }
 
