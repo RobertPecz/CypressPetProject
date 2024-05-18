@@ -11,4 +11,12 @@ describe('001 Login tests', () => {
     loggedUserPage.ValidateUserLoggedInUsername();
   });
 
+  it('02 Login with valid email and invalid password', () => {
+    const login = new loginPage();
+    login.visit();
+    const loggedUserPage = login.loginToPage(loginData.loginName, loginData.invalidPassword);
+    login.validateGeneralErrorMessage();
+    login.validateInvalidPasswordError();
+  });
+
 });
