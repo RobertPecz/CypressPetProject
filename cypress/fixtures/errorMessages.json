@@ -1,4 +1,5 @@
 {
     "generalErrorMessage": "There is 1 error",
-    "invalidPasswordErrorMessage": "Invalid password."
+    "invalidPasswordErrorMessage": "Invalid password.",
+    "autheticationErrorMessage": "Authentication failed."
 }
