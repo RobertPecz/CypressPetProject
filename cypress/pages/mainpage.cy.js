@@ -1,6 +1,5 @@
 import LoggedUserPage from "./loggedUserPage.cy";
 import URL from "../fixtures/urls.json";
-import errorMessages from "../fixtures/errorMessages.json";
 
 class MainPage {
 
@@ -10,7 +9,7 @@ class MainPage {
         passwordTextbox : () => cy.get("input#passwd"),
         loginButton : () => cy.get("button#SubmitLogin"),
         generalErrorLabel : () => cy.get("div[class='alert alert-danger'] > p"),
-        invalidPasswordErrorLabel : () => cy.get("div[class='alert alert-danger'] > ol > li")
+        detailErrorMessageLabel : () => cy.get("div[class='alert alert-danger'] > ol > li")
     }
 
     visit() {
@@ -18,19 +17,19 @@ class MainPage {
     }
 
     clickOnSignInButton() {
-        this.elements.signInButton.click();
+        this.elements.signInButton().click();
     }
 
     populateUserNameField(username) {
-        this.elements.usernameTextbox.type(username);
+        this.elements.usernameTextbox().type(username);
     }
 
     populatePasswordField(password) {
-        this.elements.passwordTextbox.type(password);
+        this.elements.passwordTextbox().type(password);
     }
 
     submitLoginButton() {
-        this.elements.loginButton.click();
+        this.elements.loginButton().click();
     }
 
     loginToPage(username, password) {
@@ -42,12 +41,8 @@ class MainPage {
         return new LoggedUserPage();
     }
 
-    validateGeneralErrorMessage() {
-        this.elements.generalErrorLabel.should("have.text", errorMessages.generalErrorMessage);
-    }
-
-    validateInvalidPasswordError() {
-        this.elements.invalidPasswordErrorLabel.should("have.text", errorMessages.invalidPasswordErrorMessage);
+    validateErrorMessage(errorLabel, errorMessage) {
+        errorLabel.should("have.text", errorMessage)
     }
 }
 

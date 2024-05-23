@@ -8,11 +8,11 @@ class LoggedUserPage {
     }
 
     ValidateUserLoggedInURL() {
-        cy.url().should("eq", URL.mainpageURL);
+        cy.url().should("eq", URL.loggedInUserURL);
     }
 
     ValidateUserLoggedInUsername() {
-        this.elements.loggedInUsernameLabel.should("have.text", loginData.loggedInUserName);
+        this.elements.loggedInUsernameLabel().should("have.text", loginData.loggedInUserName);
     }
 }
 
