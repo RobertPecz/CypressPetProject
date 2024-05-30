@@ -1,5 +1,4 @@
 import URL from "../fixtures/urls.json";
-import loginData from '../fixtures/login.json';
 
 class LoggedUserPage {
 
@@ -11,8 +10,8 @@ class LoggedUserPage {
         cy.url().should("eq", URL.loggedInUserURL);
     }
 
-    ValidateUserLoggedInUsername() {
-        this.elements.loggedInUsernameLabel().should("have.text", loginData.loggedInUserName);
+    ValidateUserLoggedInUsername(username) {
+        this.elements.loggedInUsernameLabel().should("have.text", username);
     }
 }
 

@@ -9,7 +9,7 @@ describe('001 Login tests', () => {
     login.visit();
     const loggedUserPage = login.loginToPage(loginData.loginName, loginData.password);
     loggedUserPage.ValidateUserLoggedInURL();
-    loggedUserPage.ValidateUserLoggedInUsername();
+    loggedUserPage.ValidateUserLoggedInUsername(loginData.loggedInUserName);
   });
 
   it('02 Login with valid email and invalid password', () => {
