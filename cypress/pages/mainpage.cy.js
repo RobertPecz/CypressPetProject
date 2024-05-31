@@ -13,7 +13,7 @@ class MainPage {
     }
 
     visit() {
-        cy.visit(URL.loggedInUserURL);
+        cy.visit(URL.mainpageURL);
     }
 
     clickOnSignInButton() {

@@ -2,5 +2,6 @@
     "generalErrorMessage": "There is 1 error",
     "invalidPasswordErrorMessage": "Invalid password.",
     "autheticationErrorMessage": "Authentication failed.",
-    "passwordRequiredErrorMessage": "Password is required."
+    "passwordRequiredErrorMessage": "Password is required.",
+    "accountCreatedSuccesMessage": "Your account has been created."
 }

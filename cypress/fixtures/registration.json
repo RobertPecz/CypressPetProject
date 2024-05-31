@@ -1,0 +1,10 @@
+{
+    "gender": "male",
+    "firstName": "John",
+    "lastName": "Doe",
+    "fullName": "John Doe",
+    "pwd": "12345",
+    "dobDay": "27",
+    "dobMonth": "February",
+    "dobYear": "1986"
+}
