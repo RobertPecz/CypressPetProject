@@ -1,6 +1,13 @@
 import LoggedUserPage from "./loggedUserPage.cy";
+import FeedbackMessages from "../fixtures/feedbackMessages.json";
 
 class CreateAccountPage {
+
+    randomEmailString = "";
+
+    constructor (randomEmailString) {
+        this.randomEmailString = randomEmailString;
+    }
 
     elements = {
         //Create an account elements
@@ -16,7 +23,8 @@ class CreateAccountPage {
         dobMonthDropdown : () => cy.get("select#months"),
         dobYearDropdown : () => cy.get("select#years"),
         signUpNewsLetterCheckbox : () => cy.get("input#newsletter"),
-        submitRegistrationButton : () => cy.get("button#submitAccount")
+        submitRegistrationButton : () => cy.get("button#submitAccount"),
+        accountCreatedLabel : () => cy.get("p.alert.alert-success")
     }
 
     FillRegistrationForm(gender, firstName, lastName, pwd, dobDay, dobMonth, dobYear) {
@@ -37,13 +45,14 @@ class CreateAccountPage {
 
         this.elements.firstNameInput().type(firstName); 
         this.elements.lastNameInput().type(lastName);
-        this.elements.emailInput().should("have.text", this.randomEmailString);
+        this.elements.emailInput().should("have.value", this.randomEmailString);
         this.elements.passwordInput().type(pwd)
         this.elements.dobDayDropdown().select(dobDay);
         this.elements.dobMonthDropdown().select(dobMonth);
         this.elements.dobYearDropdown().select(dobYear);
         this.elements.submitRegistrationButton().click();
 
+        this.elements.accountCreatedLabel().contains(FeedbackMessages.accountCreatedSuccesMessage);
         return new LoggedUserPage();
     }
 }

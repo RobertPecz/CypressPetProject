@@ -2,7 +2,8 @@
     "gender": "male",
     "firstName": "John",
     "lastName": "Doe",
-    "pwd": "1234",
+    "fullName": "John Doe",
+    "pwd": "12345",
     "dobDay": "27",
     "dobMonth": "February",
     "dobYear": "1986"

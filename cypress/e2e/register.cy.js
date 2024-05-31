@@ -9,13 +9,13 @@ describe('001 register tests', () => {
         login.visit();
         login.clickOnSignInButton();
         const register = new registerPage();
-        const registerForm = new register.StartRegistration();
+        const registerForm = register.StartRegistration();
 
         const loggedUserPage = registerForm.FillRegistrationForm(
             registerData.gender, registerData.firstName, registerData.lastName, registerData.pwd, 
             registerData.dobDay, registerData.dobMonth, registerData.dobYear);
 
         loggedUserPage.ValidateUserLoggedInURL();
-        loggedUserPage.ValidateUserLoggedInUsername();
+        loggedUserPage.ValidateUserLoggedInUsername(registerData.fullName);
     })
 })

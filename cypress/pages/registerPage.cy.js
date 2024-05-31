@@ -1,3 +1,5 @@
+import CreateAccountPage from './createAccountPage.cy';
+
 class RegisterPage {
 
     randomEmailString = "";
@@ -30,7 +32,7 @@ class RegisterPage {
         this.elements.registerEmailAddressInput().type(this.randomEmailString);
         this.elements.registerButton().click();
 
-        return new CreateAccountPage();
+        return new CreateAccountPage(this.randomEmailString);
     }
 }
 
