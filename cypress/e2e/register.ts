@@ -1,5 +1,5 @@
-import loginPage from '../pages/mainpage.cy.js';
-import registerPage from '../pages/registerPage.cy.js'
+import loginPage from '../pages/mainpage';
+import registerPage from '../pages/registerPage'
 import registerData from '../fixtures/registration.json'
 
 describe('001 register tests', () => {

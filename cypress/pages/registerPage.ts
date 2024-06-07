@@ -1,4 +1,4 @@
-import CreateAccountPage from './createAccountPage.cy';
+import CreateAccountPage from './createAccountPage';
 
 class RegisterPage {
 
