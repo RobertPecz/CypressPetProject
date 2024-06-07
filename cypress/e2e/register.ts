@@ -1,21 +1,21 @@
-import loginPage from '../pages/mainpage';
-import registerPage from '../pages/registerPage'
-import registerData from '../fixtures/registration.json'
+import LoginPage from '../pages/mainpage';
+import RegisterPage from '../pages/registerPage';
+import RegisterData from '../fixtures/registration.json';
 
 describe('001 register tests', () => {
 
     it('05 Register user with valid email and password', () => {
-        const login = new loginPage();
+        const login = new LoginPage();
         login.visit();
         login.clickOnSignInButton();
-        const register = new registerPage();
-        const registerForm = register.StartRegistration();
+        const register = new RegisterPage();
+        const registerForm = register.startRegistration();
 
-        const loggedUserPage = registerForm.FillRegistrationForm(
-            registerData.gender, registerData.firstName, registerData.lastName, registerData.pwd, 
-            registerData.dobDay, registerData.dobMonth, registerData.dobYear);
+        const LoggedUserPage = registerForm.fillRegistrationForm(
+            RegisterData.gender, RegisterData.firstName, RegisterData.lastName, RegisterData.pwd, 
+            RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
 
-        loggedUserPage.ValidateUserLoggedInURL();
-        loggedUserPage.ValidateUserLoggedInUsername(registerData.fullName);
+        LoggedUserPage.validateUserLoggedInURL();
+        LoggedUserPage.validateUserLoggedInUsername(RegisterData.fullName);
     })
 })

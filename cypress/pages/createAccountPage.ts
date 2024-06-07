@@ -1,11 +1,11 @@
-import LoggedUserPage from "./loggedUserPage"
-import FeedbackMessages from "../fixtures/feedbackMessages.json";
+import LoggedUserPage from "./loggedUserPage";
+import feedbackMessages from "../fixtures/feedbackMessages.json";
 
 class CreateAccountPage {
 
     randomEmailString = "";
 
-    constructor (randomEmailString) {
+    constructor (randomEmailString: string) {
         this.randomEmailString = randomEmailString;
     }
 
@@ -27,7 +27,7 @@ class CreateAccountPage {
         accountCreatedLabel : () => cy.get("p.alert.alert-success")
     }
 
-    FillRegistrationForm(gender, firstName, lastName, pwd, dobDay, dobMonth, dobYear) {
+    fillRegistrationForm(gender: string, firstName: string , lastName: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
         try{
             if(gender.toLowerCase() == "male") {
                 this.elements.mrRadioButton().click();
@@ -52,7 +52,7 @@ class CreateAccountPage {
         this.elements.dobYearDropdown().select(dobYear);
         this.elements.submitRegistrationButton().click();
 
-        this.elements.accountCreatedLabel().contains(FeedbackMessages.accountCreatedSuccesMessage);
+        this.elements.accountCreatedLabel().contains(feedbackMessages.accountCreatedSuccesMessage);
         return new LoggedUserPage();
     }
 }
