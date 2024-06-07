@@ -1,4 +1,4 @@
-import LoggedUserPage from "./loggedUserPage.cy";
+import LoggedUserPage from "./loggedUserPage"
 import FeedbackMessages from "../fixtures/feedbackMessages.json";
 
 class CreateAccountPage {

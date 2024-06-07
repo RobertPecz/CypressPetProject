@@ -1,4 +1,4 @@
-import LoggedUserPage from "./loggedUserPage.cy";
+import LoggedUserPage from "./loggedUserPage";
 import URL from "../fixtures/urls.json";
 
 class MainPage {

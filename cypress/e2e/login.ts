@@ -1,5 +1,5 @@
 import loginData from '../fixtures/login.json';
-import loginPage from '../pages/mainpage.cy.js';
+import loginPage from '../pages/mainpage';
 import feedbackMessages from "../fixtures/feedbackMessages.json";
 
 describe('001 Login tests', () => {
