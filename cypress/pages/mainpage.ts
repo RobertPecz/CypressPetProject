@@ -1,4 +1,4 @@
-import LoggedUserPage from "./loggedUserPage";
+import loggedUserPage from "./loggedUserPage";
 import URL from "../fixtures/urls.json";
 
 class MainPage {
@@ -20,11 +20,11 @@ class MainPage {
         this.elements.signInButton().click();
     }
 
-    populateUserNameField(username) {
+    populateUserNameField(username: string) {
         this.elements.usernameTextbox().type(username);
     }
 
-    populatePasswordField(password) {
+    populatePasswordField(password: string) {
         this.elements.passwordTextbox().type(password);
     }
 
@@ -32,16 +32,16 @@ class MainPage {
         this.elements.loginButton().click();
     }
 
-    loginToPage(username, password) {
+    loginToPage(username: string, password: string) {
         this.clickOnSignInButton();
         this.populateUserNameField(username);
         this.populatePasswordField(password);
         this.submitLoginButton();
 
-        return new LoggedUserPage();
+        return new loggedUserPage();
     }
 
-    validateErrorMessage(errorLabel, errorMessage) {
+    validateErrorMessage(errorLabel: Cypress.Chainable<JQuery<HTMLElement>>, errorMessage: string) {
         errorLabel.should("have.text", errorMessage)
     }
 }

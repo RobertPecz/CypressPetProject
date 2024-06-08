@@ -9,7 +9,7 @@ class RegisterPage {
         registerButton : () => cy.get("button#SubmitCreate"),
     }
 
-    CreateRandomString() {
+    createRandomString() {
         let result = '';
         const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -20,15 +20,15 @@ class RegisterPage {
         return result;
     }
 
-    CreateRandomEmail() {
+    createRandomEmail() {
         let randomEmail = '';
-        randomEmail += this.CreateRandomString() + "@" + this.CreateRandomString() + ".com"
+        randomEmail += this.createRandomString() + "@" + this.createRandomString() + ".com"
         
         return randomEmail;
     }
 
-    StartRegistration() {
-        this.randomEmailString = this.CreateRandomEmail();
+    startRegistration() {
+        this.randomEmailString = this.createRandomEmail();
         this.elements.registerEmailAddressInput().type(this.randomEmailString);
         this.elements.registerButton().click();
 

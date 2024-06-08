@@ -6,11 +6,11 @@ class LoggedUserPage {
         loggedInUsernameLabel : () => cy.get("a[title='View my customer account'] > span")
     }
 
-    ValidateUserLoggedInURL() {
+    validateUserLoggedInURL() {
         cy.url().should("eq", URL.loggedInUserURL);
     }
 
-    ValidateUserLoggedInUsername(username) {
+    validateUserLoggedInUsername(username: string) {
         this.elements.loggedInUsernameLabel().should("have.text", username);
     }
 }
