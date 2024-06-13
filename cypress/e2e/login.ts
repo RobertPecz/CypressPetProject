@@ -1,5 +1,6 @@
 import LoginData from '../fixtures/login.json';
 import LoginPage from '../pages/mainpage';
+import ErrorMessage from '../pages/errorMessages';
 import feedbackMessages from "../fixtures/feedbackMessages.json";
 
 describe('001 Login tests', () => {
@@ -16,16 +17,16 @@ describe('001 Login tests', () => {
     const Login = new LoginPage();
     Login.visit();
     const LoggedUserPage = Login.loginToPage(LoginData.loginName, LoginData.invalidPassword);
-    Login.validateErrorMessage(Login.elements.generalErrorLabel(), feedbackMessages.generalErrorMessage);
-    Login.validateErrorMessage(Login.elements.detailErrorMessageLabel(), feedbackMessages.invalidPasswordErrorMessage);
+    ErrorMessage.validateErrorMessage(Login.elements.generalErrorLabel(), feedbackMessages.generalErrorMessage);
+    ErrorMessage.validateErrorMessage(Login.elements.detailErrorMessageLabel(), feedbackMessages.invalidPasswordErrorMessage);
   });
 
   it('03 Login with invalid email and valid password', () => {
     const Login = new LoginPage();
     Login.visit();
     const LoggedUserPage = Login.loginToPage(LoginData.invalidEmail, LoginData.password);
-    Login.validateErrorMessage(Login.elements.generalErrorLabel(), feedbackMessages.generalErrorMessage);
-    Login.validateErrorMessage(Login.elements.detailErrorMessageLabel(), feedbackMessages.autheticationErrorMessage);
+    ErrorMessage.validateErrorMessage(Login.elements.generalErrorLabel(), feedbackMessages.generalErrorMessage);
+    ErrorMessage.validateErrorMessage(Login.elements.detailErrorMessageLabel(), feedbackMessages.autheticationErrorMessage);
   })
 
   it('04 Login with valid email and empty password', () => {
@@ -34,7 +35,7 @@ describe('001 Login tests', () => {
     Login.clickOnSignInButton();
     Login.populateUserNameField(LoginData.loginName);
     Login.submitLoginButton();
-    Login.validateErrorMessage(Login.elements.generalErrorLabel(), feedbackMessages.generalErrorMessage);
-    Login.validateErrorMessage(Login.elements.detailErrorMessageLabel(), feedbackMessages.passwordRequiredErrorMessage);
+    ErrorMessage.validateErrorMessage(Login.elements.generalErrorLabel(), feedbackMessages.generalErrorMessage);
+    ErrorMessage.validateErrorMessage(Login.elements.detailErrorMessageLabel(), feedbackMessages.passwordRequiredErrorMessage);
   })
 });
