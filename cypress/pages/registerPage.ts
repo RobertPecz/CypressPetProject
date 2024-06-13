@@ -1,4 +1,7 @@
 import CreateAccountPage from './createAccountPage';
+import ErrorMessage from './errorMessages';
+import MainPage from './mainpage';
+import feedbackMessages from "../fixtures/feedbackMessages.json";
 
 class RegisterPage {
 
@@ -33,6 +36,13 @@ class RegisterPage {
         this.elements.registerButton().click();
 
         return new CreateAccountPage(this.randomEmailString);
+    }
+
+    startInvalidEmailRegistration() {
+        this.elements.registerEmailAddressInput().type(this.createRandomString());
+        this.elements.registerButton().click();
+        var mainpage = new MainPage();
+        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.invalidEmailAddressMessage)
     }
 }
 

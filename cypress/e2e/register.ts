@@ -18,4 +18,12 @@ describe('001 register tests', () => {
         LoggedUserPage.validateUserLoggedInURL();
         LoggedUserPage.validateUserLoggedInUsername(RegisterData.fullName);
     })
+
+    it('06 Register user with invalid email and valid password.', () => {
+        const login = new LoginPage();
+        login.visit();
+        login.clickOnSignInButton();
+        const register = new RegisterPage();
+        register.startInvalidEmailRegistration();
+    })
 })

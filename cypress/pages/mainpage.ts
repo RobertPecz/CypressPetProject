@@ -1,4 +1,4 @@
-import loggedUserPage from "./loggedUserPage";
+import LoggedUserPage from "./loggedUserPage";
 import URL from "../fixtures/urls.json";
 
 class MainPage {
@@ -38,11 +38,7 @@ class MainPage {
         this.populatePasswordField(password);
         this.submitLoginButton();
 
-        return new loggedUserPage();
-    }
-
-    validateErrorMessage(errorLabel: Cypress.Chainable<JQuery<HTMLElement>>, errorMessage: string) {
-        errorLabel.should("have.text", errorMessage)
+        return new LoggedUserPage();
     }
 }
 
