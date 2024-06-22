@@ -3,15 +3,17 @@ import RegisterPage from '../pages/registerPage';
 import RegisterData from '../fixtures/registration.json';
 
 describe('001 register tests', () => {
+    const Login = new LoginPage();
+    beforeEach(() => {
+        Login.visit();
+        Login.clickOnSignInButton();
+    })
 
     it('05 Register user with valid email and password', () => {
-        const login = new LoginPage();
-        login.visit();
-        login.clickOnSignInButton();
-        const register = new RegisterPage();
-        const registerForm = register.startRegistration();
+        const Register = new RegisterPage();
+        const RegisterForm = Register.startRegistration();
 
-        const LoggedUserPage = registerForm.fillRegistrationForm(
+        const LoggedUserPage = RegisterForm.fillRegistrationForm(
             RegisterData.gender, RegisterData.firstName, RegisterData.lastName, RegisterData.pwd, 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
 
