@@ -7,7 +7,8 @@ class LoggedUserPage {
     }
 
     validateUserLoggedInURL() {
-        cy.url().should("eq", URL.loggedInUserURL);
+        const baseUrl = Cypress.config('baseUrl');
+        cy.url().should("eq", baseUrl + URL.loggedInUserURL);
     }
 
     validateUserLoggedInUsername(username: string) {
