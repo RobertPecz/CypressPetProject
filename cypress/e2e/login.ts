@@ -1,5 +1,5 @@
 import LoginData from '../fixtures/login.json';
-import LoginPage from '../pages/mainpage';
+import LoginPage from '../pages/mainPage';
 import ErrorMessage from '../pages/errorMessages';
 import feedbackMessages from "../fixtures/feedbackMessages.json";
 
