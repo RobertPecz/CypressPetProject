@@ -4,5 +4,6 @@
     "invalidEmailAddressMessage": "Invalid email address.",
     "autheticationErrorMessage": "Authentication failed.",
     "passwordRequiredErrorMessage": "Password is required.",
-    "accountCreatedSuccesMessage": "Your account has been created."
+    "accountCreatedSuccesMessage": "Your account has been created.",
+    "orderConfirmedMessage": "Your order on My Shop is complete."
 }
