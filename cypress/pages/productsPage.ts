@@ -26,7 +26,7 @@ class ProductsPage {
         this.elements.productAvailableWithDiffOpObject().click();
     }
 
-    selectQuanityAndSize(quantity: string, size: "S" | "M" | "L") {
+    selectQuanityAndSize(quantity: string, size: string) {
         this.elements.quantityInput().type(quantity);
         this.elements.sizeDropDowndown().select(size);
     }
@@ -48,10 +48,12 @@ class ProductsPage {
         this.elements.orderSuccessLabel().should("have.text", feedbackMessages.orderConfirmedMessage)
     }
 
-    buyProductProcess(title: string, quantity: string, size: "S" | "M" | "L") {
+    buyProductProcess(title: string, quantity: string, size: string) {
         this.navigateToWomenDressCategory(title);
         this.selectDressWhichInStock();
-        this.selectQuanityAndSize(quantity, size);
+        if(size != ""+"S" || size != ""+"M" || size != ""+"L") {
+            this.selectQuanityAndSize(quantity, size);
+        }
         this.checkoutProductProcess();
     }
 }

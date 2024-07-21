@@ -4,7 +4,8 @@
     "titleTshirts": "T-Shirts",
     "quantityOne": "1",
     "quantityMultiple": "2",
-    "sizeSmall": "S",
-    "sizeMedium": "M",
+    "sizeSmall": "S", 
+    "sizeMedium": "M", 
     "sizeLarge": "L"
+    
 }
