@@ -14,6 +14,6 @@ describe('002 Buy product tests', () => {
 
     it('01 Buy one product', () => {
         const Product = new ProductsPage();
-        Product.buyProductProcess(ProductData.titleWomen, ProductData.quantityOne, ProductData.sizeSmall);
+        Product.buyProductProcess(ProductData.titleWomen, ProductData.quantityOne, ProductData.sizeLarge);
     });
 });

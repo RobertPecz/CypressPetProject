@@ -4,13 +4,16 @@ class ProductsPage {
     
     elements = {
         womenButton : (title: string) => cy.get(`a[title='${title}']`),
-        productAvailableWithDiffOpObject : () => cy.get("span > span.available-dif").parent(),
+        productAvailableWithDiffOpObject : () => cy.get("a[class='product-name'][title='Blouse']"),
         productNoLongerStockLabel : () => cy.get("span#availability_value.label.label-warning"),
         productInStockLabel : () => cy.get("span#availability_value.label.label-success"),
         sizeDropDowndown : () => cy.get("select#group_1"),
         quantityInput : () => cy.get("input#quantity_wanted"),
         addToCartButton : () => cy.get("button[name='Submit']"),
-        proceedToCheckoutButton : () => cy.get("a[title='Proceed to checkout']"),
+        proceedToCheckoutPopupButton : () => cy.get("a[class='btn btn-default button button-medium'][title='Proceed to checkout']"),
+        proceedToCheckoutButton : () => cy.get("a[class='button btn btn-default standard-checkout button-medium'][title='Proceed to checkout']"),
+        proceedToCheckoutAddressButton : () => cy.get("button[name='processAddress']"),
+        proceedToCheckoutShippingButton : () => cy.get("button[name='processCarrier']"),
         tosCheckbox : () => cy.get("input#cgv"),
         bankwirePayButton : () => cy.get("a.bankwire"),
         chequePayButton : () => cy.get("a.cheque"),
@@ -27,21 +30,21 @@ class ProductsPage {
     }
 
     selectQuanityAndSize(quantity: string, size: string) {
-        this.elements.quantityInput().type(quantity);
         this.elements.sizeDropDowndown().select(size);
+        this.elements.quantityInput().type(quantity);
     }
 
     checkoutProductProcess() {
         this.elements.addToCartButton().click();
         //Proceed to checkout on the popup page
-        this.elements.proceedToCheckoutButton().click();
+        this.elements.proceedToCheckoutPopupButton().click();
         //01. Summary page
         this.elements.proceedToCheckoutButton().click();
         //03. Address page
-        this.elements.proceedToCheckoutButton().click();
+        this.elements.proceedToCheckoutAddressButton().click();
         //04. Shipping page
         this.elements.tosCheckbox().check();
-        this.elements.proceedToCheckoutButton().click();
+        this.elements.proceedToCheckoutShippingButton().click();
         //05. Payment page
         this.elements.bankwirePayButton().click();
         this.elements.confirmMyOrderButton().click();
