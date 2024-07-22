@@ -1,6 +1,6 @@
 import CreateAccountPage from './createAccountPage';
 import ErrorMessage from './errorMessages';
-import MainPage from './mainpage';
+import MainPage from './mainPage';
 import feedbackMessages from "../fixtures/feedbackMessages.json";
 
 class RegisterPage {

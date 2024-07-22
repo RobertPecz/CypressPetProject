@@ -1,4 +1,4 @@
-import LoginPage from '../pages/mainpage';
+import LoginPage from '../pages/mainPage';
 import RegisterPage from '../pages/registerPage';
 import RegisterData from '../fixtures/registration.json';
 
