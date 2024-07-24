@@ -12,11 +12,11 @@ class RegisterPage {
         registerButton : () => cy.get("button#SubmitCreate"),
     }
 
-    createRandomString() {
+    createRandomString(length: number) {
         let result = '';
         const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-        for (let index = 0; index < 5; index++) {
+        for (let index = 0; index < length; index++) {
             result += characters.charAt(Math.floor(Math.random() * characters.length));           
         }
 
@@ -25,7 +25,7 @@ class RegisterPage {
 
     createRandomEmail() {
         let randomEmail = '';
-        randomEmail += this.createRandomString() + "@" + this.createRandomString() + ".com"
+        randomEmail += this.createRandomString(5) + "@" + this.createRandomString(5) + ".com"
         
         return randomEmail;
     }
@@ -39,10 +39,10 @@ class RegisterPage {
     }
 
     startInvalidEmailRegistration() {
-        this.elements.registerEmailAddressInput().type(this.createRandomString());
+        this.elements.registerEmailAddressInput().type(this.createRandomString(5));
         this.elements.registerButton().click();
         var mainpage = new MainPage();
-        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.invalidEmailAddressMessage)
+        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.invalidEmailAddressMessage);
     }
 }
 
