@@ -27,7 +27,7 @@ class CreateAccountPage {
         accountCreatedLabel : () => cy.get("p.alert.alert-success")
     }
 
-    fillRegistrationForm(gender: string, firstName: string , lastName: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
+    fillRegistrationForm(gender: string, firstName: string, lastName: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
         try{
             if(gender.toLowerCase() == "male") {
                 this.elements.mrRadioButton().click();
@@ -51,7 +51,9 @@ class CreateAccountPage {
         this.elements.dobMonthDropdown().select(dobMonth);
         this.elements.dobYearDropdown().select(dobYear);
         this.elements.submitRegistrationButton().click();
+    }
 
+    createAccountSuccess() {
         this.elements.accountCreatedLabel().contains(feedbackMessages.accountCreatedSuccesMessage);
         return new LoggedUserPage();
     }
