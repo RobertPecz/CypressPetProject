@@ -42,6 +42,6 @@ describe('001 register tests', () => {
             RegisterData.gender, RegisterData.firstName, RegisterData.lastName, Register.createRandomString(3), 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
             
-        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.invalidEmailAddressMessage);
+        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.invalidRegistrationPasswordMessage);
     })
 })
