@@ -55,8 +55,10 @@ describe('001 register tests', () => {
         const mainpage = new MainPage();
         const RegisterForm = Register.startRegistration();
         const enum pwdd {long='long', short = 'short'};
+        
+        //Cypress not accept empty string with type.
         RegisterForm.fillRegistrationForm(
-            gender.male, RegisterData.firstName, RegisterData.lastName, '', 
+            gender.male, RegisterData.firstName, RegisterData.lastName, "{backspace}", 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
             
         ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.missingRegistrationPasswordMessage);
