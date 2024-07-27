@@ -8,7 +8,7 @@ class CreateAccountPage {
     constructor (randomEmailString: string) {
         this.randomEmailString = randomEmailString;
     }
-
+    
     elements = {
         //Create an account elements
         mrRadioButton : () => cy.get("input#id_gender1"),
@@ -27,7 +27,7 @@ class CreateAccountPage {
         accountCreatedLabel : () => cy.get("p.alert.alert-success")
     }
 
-    fillRegistrationForm(gender: string, firstName: string, lastName: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
+    fillRegistrationForm(gender: "male" | "female", firstName: string, lastName: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
         try{
             if(gender.toLowerCase() == "male") {
                 this.elements.mrRadioButton().click();
@@ -43,10 +43,12 @@ class CreateAccountPage {
             cy.log(error);
         }
 
+        //https://github.com/cypress-io/cypress/issues/3587
+        //Check which option the best to send empty string.
         this.elements.firstNameInput().type(firstName); 
         this.elements.lastNameInput().type(lastName);
         this.elements.emailInput().should("have.value", this.randomEmailString);
-        this.elements.passwordInput().type(pwd)
+        this.elements.passwordInput().type(pwd);
         this.elements.dobDayDropdown().select(dobDay);
         this.elements.dobMonthDropdown().select(dobMonth);
         this.elements.dobYearDropdown().select(dobYear);

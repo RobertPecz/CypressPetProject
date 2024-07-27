@@ -6,5 +6,6 @@
     "passwordRequiredErrorMessage": "Password is required.",
     "accountCreatedSuccesMessage": "Your account has been created.",
     "orderConfirmedMessage": "Your order on My Shop is complete.",
-    "invalidRegistrationPasswordMessage": "passwd is invalid."
+    "invalidRegistrationPasswordMessage": "passwd is invalid.",
+    "missingRegistrationPasswordMessage": "passwd is required."
 }
