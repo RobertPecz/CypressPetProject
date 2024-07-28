@@ -27,7 +27,15 @@ class CreateAccountPage {
         accountCreatedLabel : () => cy.get("p.alert.alert-success")
     }
 
-    fillRegistrationForm(gender: "male" | "female", firstName: string, lastName: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
+    fillRegistrationForm(
+        gender: "male" | "female", 
+        firstName: string = "{backspace}", 
+        lastName: string = "{backspace}", 
+        email: string = "{backspace}",
+        pwd: string = "{backspace}", 
+        dobDay: string = "{backspace}", 
+        dobMonth: string = "{backspace}", 
+        dobYear: string = "{backspace}") {
         try{
             if(gender.toLowerCase() == "male") {
                 this.elements.mrRadioButton().click();
@@ -43,16 +51,28 @@ class CreateAccountPage {
             cy.log(error);
         }
 
-        //https://github.com/cypress-io/cypress/issues/3587
-        //Check which option the best to send empty string.
-        this.elements.firstNameInput().type(firstName); 
-        this.elements.lastNameInput().type(lastName);
-        this.elements.emailInput().should("have.value", this.randomEmailString);
-        this.elements.passwordInput().type(pwd);
-        this.elements.dobDayDropdown().select(dobDay);
-        this.elements.dobMonthDropdown().select(dobMonth);
-        this.elements.dobYearDropdown().select(dobYear);
+
+        this.typeInElement(this.elements.firstNameInput(), firstName); 
+        this.typeInElement(this.elements.lastNameInput(), lastName);
+        if(email === "{backspace}") {
+            this.elements.emailInput().should("have.value", this.randomEmailString);
+        }
+        else {
+            this.typeInElement(this.elements.emailInput(), email);
+        }
+        this.typeInElement(this.elements.passwordInput(), pwd);
+        this.selectElement(this.elements.dobDayDropdown(), dobDay);
+        this.selectElement(this.elements.dobMonthDropdown(), dobMonth);
+        this.selectElement(this.elements.dobYearDropdown(), dobYear);
         this.elements.submitRegistrationButton().click();
+    }
+
+    private typeInElement(element: Cypress.Chainable<JQuery<HTMLElement>>, typeMessage: string) {
+        element.type(typeMessage);
+    }
+
+    private selectElement(element: Cypress.Chainable<JQuery<HTMLElement>>, option: string) {
+        element.select(option);
     }
 
     createAccountSuccess() {
