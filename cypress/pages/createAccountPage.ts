@@ -27,27 +27,26 @@ class CreateAccountPage {
         accountCreatedLabel : () => cy.get("p.alert.alert-success")
     }
 
-    fillRegistrationForm(gender: "male" | "female", firstName: string, lastName: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
-        try{
-            if(gender.toLowerCase() == "male") {
-                this.elements.mrRadioButton().click();
-            }
-            else if(gender.toLowerCase() == "female") {
-                this.elements.mrsRadioButton().click();
-            }
-            else {
-                throw new Error("Only male and female can choose as gender.");
-            }
+    fillRegistrationForm(gender: "male" | "female", isNewEmail: boolean, firstName?: string, lastName?: string, email?: string, pwd?: string, dobDay?: string, dobMonth?: string, dobYear?: string) {
+        
+        if(gender.toLowerCase() == "male") {
+            this.elements.mrRadioButton().click();
         }
-        catch (error) {
-            cy.log(error);
+        else if(gender.toLowerCase() == "female") {
+            this.elements.mrsRadioButton().click();
         }
-
-        //https://github.com/cypress-io/cypress/issues/3587
-        //Check which option the best to send empty string.
+        else {
+            throw new Error("Only male and female can choose as gender.");
+        }
+        
         this.elements.firstNameInput().type(firstName); 
         this.elements.lastNameInput().type(lastName);
-        this.elements.emailInput().should("have.value", this.randomEmailString);
+        if(!isNewEmail) {
+            this.elements.emailInput().should("have.value", this.randomEmailString);
+        }
+        else {
+            this.elements.emailInput().type(email);
+        }
         this.elements.passwordInput().type(pwd);
         this.elements.dobDayDropdown().select(dobDay);
         this.elements.dobMonthDropdown().select(dobMonth);
