@@ -27,52 +27,31 @@ class CreateAccountPage {
         accountCreatedLabel : () => cy.get("p.alert.alert-success")
     }
 
-    fillRegistrationForm(
-        gender: "male" | "female", 
-        firstName: string = "{backspace}", 
-        lastName: string = "{backspace}", 
-        email: string = "{backspace}",
-        pwd: string = "{backspace}", 
-        dobDay: string = "{backspace}", 
-        dobMonth: string = "{backspace}", 
-        dobYear: string = "{backspace}") {
-        try{
-            if(gender.toLowerCase() == "male") {
-                this.elements.mrRadioButton().click();
-            }
-            else if(gender.toLowerCase() == "female") {
-                this.elements.mrsRadioButton().click();
-            }
-            else {
-                throw new Error("Only male and female can choose as gender.");
-            }
+    fillRegistrationForm(gender: "male" | "female", isNewEmail: boolean, firstName?: string, lastName?: string, email?: string, pwd?: string, dobDay?: string, dobMonth?: string, dobYear?: string) {
+        
+        if(gender.toLowerCase() == "male") {
+            this.elements.mrRadioButton().click();
         }
-        catch (error) {
-            cy.log(error);
+        else if(gender.toLowerCase() == "female") {
+            this.elements.mrsRadioButton().click();
         }
-
-
-        this.typeInElement(this.elements.firstNameInput(), firstName); 
-        this.typeInElement(this.elements.lastNameInput(), lastName);
-        if(email === "{backspace}") {
+        else {
+            throw new Error("Only male and female can choose as gender.");
+        }
+        
+        this.elements.firstNameInput().type(firstName); 
+        this.elements.lastNameInput().type(lastName);
+        if(!isNewEmail) {
             this.elements.emailInput().should("have.value", this.randomEmailString);
         }
         else {
-            this.typeInElement(this.elements.emailInput(), email);
+            this.elements.emailInput().type(email);
         }
-        this.typeInElement(this.elements.passwordInput(), pwd);
-        this.selectElement(this.elements.dobDayDropdown(), dobDay);
-        this.selectElement(this.elements.dobMonthDropdown(), dobMonth);
-        this.selectElement(this.elements.dobYearDropdown(), dobYear);
+        this.elements.passwordInput().type(pwd);
+        this.elements.dobDayDropdown().select(dobDay);
+        this.elements.dobMonthDropdown().select(dobMonth);
+        this.elements.dobYearDropdown().select(dobYear);
         this.elements.submitRegistrationButton().click();
-    }
-
-    private typeInElement(element: Cypress.Chainable<JQuery<HTMLElement>>, typeMessage: string) {
-        element.type(typeMessage);
-    }
-
-    private selectElement(element: Cypress.Chainable<JQuery<HTMLElement>>, option: string) {
-        element.select(option);
     }
 
     createAccountSuccess() {

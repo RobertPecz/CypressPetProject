@@ -22,7 +22,7 @@ describe('001 register tests', () => {
         const RegisterForm = Register.startRegistration();
 
         RegisterForm.fillRegistrationForm(
-            gender.male, RegisterData.firstName, RegisterData.lastName, RegisterData.pwd, 
+            gender.male, false, RegisterData.firstName, RegisterData.lastName, "", RegisterData.pwd, 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
         
         const LoggedUserPage = RegisterForm.createAccountSuccess();
@@ -44,7 +44,7 @@ describe('001 register tests', () => {
         const RegisterForm = Register.startRegistration();
 
         RegisterForm.fillRegistrationForm(
-            gender.male, RegisterData.firstName, RegisterData.lastName, Register.createRandomString(3), 
+            gender.male, false, RegisterData.firstName, RegisterData.lastName, "", Register.createRandomString(3), 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
             
         ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.invalidRegistrationPasswordMessage);
@@ -54,13 +54,23 @@ describe('001 register tests', () => {
         const Register = new RegisterPage();
         const mainpage = new MainPage();
         const RegisterForm = Register.startRegistration();
-        const enum pwdd {long='long', short = 'short'};
         
         //Cypress not accept empty string with type.
         RegisterForm.fillRegistrationForm(
-            gender.male, RegisterData.firstName, RegisterData.lastName, "{backspace}", 
+            gender.male, false, RegisterData.firstName, RegisterData.lastName, "", "{backspace}", 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
             
         ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.missingRegistrationPasswordMessage);
+    })
+
+    it('09 Register user with empty email and valid password', () => {
+        const Register = new RegisterPage();
+        const mainpage = new MainPage();
+        const RegisterForm = Register.startRegistration();
+        
+        //Cypress not accept empty string with type.
+        RegisterForm.fillRegistrationForm(
+            gender.male, false, RegisterData.firstName, RegisterData.lastName, "{backspace}", RegisterData.pwd, 
+            RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
     })
 })
