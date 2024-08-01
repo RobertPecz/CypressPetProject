@@ -38,11 +38,11 @@ class RegisterPage {
         return new CreateAccountPage(this.randomEmailString);
     }
 
-    startInvalidEmailRegistration() {
-        this.elements.registerEmailAddressInput().type(this.createRandomString(5));
+    startInvalidRegistration(emailInput: string, errorMessage: string) {
+        this.elements.registerEmailAddressInput().type(emailInput);
         this.elements.registerButton().click();
         var mainpage = new MainPage();
-        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.invalidEmailAddressMessage);
+        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), errorMessage);
     }
 }
 

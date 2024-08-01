@@ -4,6 +4,7 @@ import RegisterData from '../fixtures/registration.json';
 import ErrorMessage from '../pages/errorMessages';
 import MainPage from '../pages/mainPage';
 import feedbackMessages from "../fixtures/feedbackMessages.json";
+import loginData from "../fixtures/login.json";
 
 const enum gender {
     male = "male",
@@ -31,11 +32,8 @@ describe('001 register tests', () => {
     })
 
     it('06 Register user with invalid email and valid password', () => {
-        const login = new LoginPage();
-        login.visit();
-        login.clickOnSignInButton();
         const register = new RegisterPage();
-        register.startInvalidEmailRegistration();
+        register.startInvalidRegistration(register.createRandomString(5), feedbackMessages.invalidEmailAddressErrorMessage);
     })
 
     it('07 Register user with valid email and invalid password', () => {
@@ -47,7 +45,7 @@ describe('001 register tests', () => {
             gender.male, false, RegisterData.firstName, RegisterData.lastName, "", Register.createRandomString(3), 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
             
-        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.invalidRegistrationPasswordMessage);
+        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.invalidRegistrationPasswordErrorMessage);
     })
 
     it('08 Register user with valid email and empty password', () => {
@@ -60,17 +58,21 @@ describe('001 register tests', () => {
             gender.male, false, RegisterData.firstName, RegisterData.lastName, "", "{backspace}", 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
             
-        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.missingRegistrationPasswordMessage);
+        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.missingRegistrationPasswordErrorMessage);
     })
 
     it('09 Register user with empty email and valid password', () => {
         const Register = new RegisterPage();
-        const mainpage = new MainPage();
         const RegisterForm = Register.startRegistration();
         
         //Cypress not accept empty string with type.
         RegisterForm.fillRegistrationForm(
             gender.male, false, RegisterData.firstName, RegisterData.lastName, "{backspace}", RegisterData.pwd, 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
+    })
+
+    it('10 Register user with email what is already registered', () => {
+        const register = new RegisterPage();
+        register.startInvalidRegistration(loginData.loginName, feedbackMessages.emailAlreadyRegisteredErrorMessage);
     })
 })
