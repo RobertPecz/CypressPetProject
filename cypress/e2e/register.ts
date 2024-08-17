@@ -75,4 +75,16 @@ describe('001 register tests', () => {
         const register = new RegisterPage();
         register.startInvalidRegistration(loginData.loginName, feedbackMessages.emailAlreadyRegisteredErrorMessage);
     })
+
+    it('11 Register user without selecting gender', () => {
+        const Register = new RegisterPage();
+        const RegisterForm = Register.startRegistration();
+
+        RegisterForm.fillRegistrationFormNoGender(false, RegisterData.firstName, RegisterData.lastName, "", RegisterData.pwd, 
+            RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear)
+
+        const LoggedUserPage = RegisterForm.createAccountSuccess();
+        LoggedUserPage.validateUserLoggedInURL();
+        LoggedUserPage.validateUserLoggedInUsername(RegisterData.fullName);
+    })
 })

@@ -27,7 +27,7 @@ class CreateAccountPage {
         accountCreatedLabel : () => cy.get("p.alert.alert-success")
     }
 
-    fillRegistrationForm(gender: "male" | "female", isNewEmail: boolean, firstName?: string, lastName?: string, email?: string, pwd?: string, dobDay?: string, dobMonth?: string, dobYear?: string) {
+    fillRegistrationForm(gender: "male" | "female", isNewEmail: boolean, firstName: string, lastName: string, email: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
         
         if(gender.toLowerCase() == "male") {
             this.elements.mrRadioButton().click();
@@ -38,7 +38,20 @@ class CreateAccountPage {
         else {
             throw new Error("Only male and female can choose as gender.");
         }
-        
+
+        this.populateRegistrationDataAndSubmit(isNewEmail, firstName, lastName, email, pwd, dobDay, dobMonth, dobYear);
+    }
+
+    fillRegistrationFormNoGender(isNewEmail: boolean, firstName: string, lastName: string, email: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
+        this.populateRegistrationDataAndSubmit(isNewEmail, firstName, lastName, email, pwd, dobDay, dobMonth, dobYear);
+    }
+
+    createAccountSuccess() {
+        this.elements.accountCreatedLabel().contains(feedbackMessages.accountCreatedSuccesMessage);
+        return new LoggedUserPage();
+    }
+
+    private populateRegistrationDataAndSubmit(isNewEmail: boolean, firstName: string, lastName: string, email: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
         this.elements.firstNameInput().type(firstName); 
         this.elements.lastNameInput().type(lastName);
         if(!isNewEmail) {
@@ -52,11 +65,6 @@ class CreateAccountPage {
         this.elements.dobMonthDropdown().select(dobMonth);
         this.elements.dobYearDropdown().select(dobYear);
         this.elements.submitRegistrationButton().click();
-    }
-
-    createAccountSuccess() {
-        this.elements.accountCreatedLabel().contains(feedbackMessages.accountCreatedSuccesMessage);
-        return new LoggedUserPage();
     }
 }
 
