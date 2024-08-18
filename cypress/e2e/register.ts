@@ -63,12 +63,15 @@ describe('001 register tests', () => {
 
     it('09 Register user with empty email and valid password', () => {
         const Register = new RegisterPage();
+        const mainpage = new MainPage();
         const RegisterForm = Register.startRegistration();
         
         //Cypress not accept empty string with type.
         RegisterForm.fillRegistrationForm(
-            gender.male, false, RegisterData.firstName, RegisterData.lastName, "{backspace}", RegisterData.pwd, 
+            gender.male, true, RegisterData.firstName, RegisterData.lastName, "{selectall}{del}", RegisterData.pwd, 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
+
+        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.emailRequiredErrorMessage);
     })
 
     it('10 Register user with email what is already registered', () => {
@@ -86,5 +89,17 @@ describe('001 register tests', () => {
         const LoggedUserPage = RegisterForm.createAccountSuccess();
         LoggedUserPage.validateUserLoggedInURL();
         LoggedUserPage.validateUserLoggedInUsername(RegisterData.fullName);
+    })
+
+    it('12 Register user without input first name', ()=> {
+        const Register = new RegisterPage();
+        const mainpage = new MainPage();
+        const RegisterForm = Register.startRegistration();
+
+        RegisterForm.fillRegistrationForm(
+            gender.male, false, "{backspace}", RegisterData.lastName, "", RegisterData.pwd, 
+            RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
+        
+        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.firstNameRequiredErrorMessage);
     })
 })
