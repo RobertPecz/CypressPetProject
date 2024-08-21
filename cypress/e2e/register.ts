@@ -91,7 +91,7 @@ describe('001 register tests', () => {
         LoggedUserPage.validateUserLoggedInUsername(RegisterData.fullName);
     })
 
-    it('12 Register user without input first name', ()=> {
+    it('12 Register user without input first name', () => {
         const Register = new RegisterPage();
         const mainpage = new MainPage();
         const RegisterForm = Register.startRegistration();
@@ -101,5 +101,17 @@ describe('001 register tests', () => {
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
         
         ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.firstNameRequiredErrorMessage);
+    })
+
+    it('13 Register user without input last name', () => {
+        const Register = new RegisterPage();
+        const mainpage = new MainPage();
+        const RegisterForm = Register.startRegistration();
+
+        RegisterForm.fillRegistrationForm(
+            gender.male, false, RegisterData.firstName, "{backspace}", "", RegisterData.pwd, 
+            RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
+        
+        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.lastNameRequiredErrorMessage);
     })
 })
