@@ -114,4 +114,18 @@ describe('001 register tests', () => {
         
         ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.lastNameRequiredErrorMessage);
     })
+
+    it('14 Register user with email changed', () => {
+        const Register = new RegisterPage();
+        const mainpage = new MainPage();
+        const RegisterForm = Register.startRegistration();
+
+        RegisterForm.fillRegistrationForm(
+            gender.male, true, RegisterData.firstName, RegisterData.lastName, Register.createRandomEmail(), RegisterData.pwd, 
+            RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
+
+        const LoggedUserPage = RegisterForm.createAccountSuccess();
+        LoggedUserPage.validateUserLoggedInURL();
+        LoggedUserPage.validateUserLoggedInUsername(RegisterData.fullName);
+    })
 })

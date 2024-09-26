@@ -58,7 +58,7 @@ class CreateAccountPage {
             this.elements.emailInput().should("have.value", this.randomEmailString);
         }
         else {
-            this.elements.emailInput().type(email);
+            this.elements.emailInput().clear().type(email);
         }
         this.elements.passwordInput().type(pwd);
         this.elements.dobDayDropdown().select(dobDay);
