@@ -117,7 +117,6 @@ describe('001 register tests', () => {
 
     it('14 Register user with email changed', () => {
         const Register = new RegisterPage();
-        const mainpage = new MainPage();
         const RegisterForm = Register.startRegistration();
 
         RegisterForm.fillRegistrationForm(
@@ -127,5 +126,17 @@ describe('001 register tests', () => {
         const LoggedUserPage = RegisterForm.createAccountSuccess();
         LoggedUserPage.validateUserLoggedInURL();
         LoggedUserPage.validateUserLoggedInUsername(RegisterData.fullName);
+    })
+
+    it('15 Register user with invalid email change', () => {
+        const Register = new RegisterPage();
+        const mainpage = new MainPage();
+        const RegisterForm = Register.startRegistration();
+
+        RegisterForm.fillRegistrationForm(
+            gender.male, true, RegisterData.firstName, RegisterData.lastName, Register.createRandomString(5), RegisterData.pwd, 
+            RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
+
+        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.emailIsInvalidErrorMessage);
     })
 })
