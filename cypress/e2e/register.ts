@@ -151,4 +151,43 @@ describe('001 register tests', () => {
 
         ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.invalidDobErrorMessage);
     })
+
+    it('17 Register user without select date of birth month', () => {
+        const Register = new RegisterPage();
+        const mainpage = new MainPage();
+        const RegisterForm = Register.startRegistration();
+
+        RegisterForm.fillRegistrationForm(
+            gender.male, RegisterData.firstName, RegisterData.lastName, null, RegisterData.pwd, 
+            RegisterData.dobDay, '-', RegisterData.dobYear);
+
+        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.invalidDobErrorMessage);
+    })
+
+    it('18 Register user without select date of birth year', () => {
+        const Register = new RegisterPage();
+        const mainpage = new MainPage();
+        const RegisterForm = Register.startRegistration();
+
+        RegisterForm.fillRegistrationForm(
+            gender.male, RegisterData.firstName, RegisterData.lastName, null, RegisterData.pwd, 
+            RegisterData.dobDay, RegisterData.dobMonth, '-');
+
+        const LoggedUserPage = RegisterForm.createAccountSuccess();
+        LoggedUserPage.validateUserLoggedInURL();
+        LoggedUserPage.validateUserLoggedInUsername(RegisterData.fullName);
+    })
+
+    it('19 Register user without date of birth', () => {
+        const Register = new RegisterPage();
+        const RegisterForm = Register.startRegistration();
+
+        RegisterForm.fillRegistrationForm(
+            gender.male, RegisterData.firstName, RegisterData.lastName, null, RegisterData.pwd, 
+            '-', '-', '-');
+        
+        const LoggedUserPage = RegisterForm.createAccountSuccess();
+        LoggedUserPage.validateUserLoggedInURL();
+        LoggedUserPage.validateUserLoggedInUsername(RegisterData.fullName);
+    })
 })
