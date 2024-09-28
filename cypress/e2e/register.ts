@@ -23,7 +23,7 @@ describe('001 register tests', () => {
         const RegisterForm = Register.startRegistration();
 
         RegisterForm.fillRegistrationForm(
-            gender.male, false, RegisterData.firstName, RegisterData.lastName, "", RegisterData.pwd, 
+            gender.male, RegisterData.firstName, RegisterData.lastName, null, RegisterData.pwd, 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
         
         const LoggedUserPage = RegisterForm.createAccountSuccess();
@@ -42,7 +42,7 @@ describe('001 register tests', () => {
         const RegisterForm = Register.startRegistration();
 
         RegisterForm.fillRegistrationForm(
-            gender.male, false, RegisterData.firstName, RegisterData.lastName, "", Register.createRandomString(3), 
+            gender.male, RegisterData.firstName, RegisterData.lastName, null, Register.createRandomString(3), 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
             
         ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.invalidRegistrationPasswordErrorMessage);
@@ -55,7 +55,7 @@ describe('001 register tests', () => {
         
         //Cypress not accept empty string with type.
         RegisterForm.fillRegistrationForm(
-            gender.male, false, RegisterData.firstName, RegisterData.lastName, "", "{backspace}", 
+            gender.male, RegisterData.firstName, RegisterData.lastName, null, "{backspace}", 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
             
         ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.missingRegistrationPasswordErrorMessage);
@@ -68,7 +68,7 @@ describe('001 register tests', () => {
         
         //Cypress not accept empty string with type.
         RegisterForm.fillRegistrationForm(
-            gender.male, true, RegisterData.firstName, RegisterData.lastName, "{selectall}{del}", RegisterData.pwd, 
+            gender.male, RegisterData.firstName, RegisterData.lastName, "{selectall}{del}", RegisterData.pwd, 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
 
         ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.emailRequiredErrorMessage);
@@ -83,7 +83,7 @@ describe('001 register tests', () => {
         const Register = new RegisterPage();
         const RegisterForm = Register.startRegistration();
 
-        RegisterForm.fillRegistrationFormNoGender(false, RegisterData.firstName, RegisterData.lastName, "", RegisterData.pwd, 
+        RegisterForm.fillRegistrationFormNoGender(RegisterData.firstName, RegisterData.lastName, null, RegisterData.pwd, 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear)
 
         const LoggedUserPage = RegisterForm.createAccountSuccess();
@@ -97,7 +97,7 @@ describe('001 register tests', () => {
         const RegisterForm = Register.startRegistration();
 
         RegisterForm.fillRegistrationForm(
-            gender.male, false, "{backspace}", RegisterData.lastName, "", RegisterData.pwd, 
+            gender.male, "{backspace}", RegisterData.lastName, null, RegisterData.pwd, 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
         
         ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.firstNameRequiredErrorMessage);
@@ -109,7 +109,7 @@ describe('001 register tests', () => {
         const RegisterForm = Register.startRegistration();
 
         RegisterForm.fillRegistrationForm(
-            gender.male, false, RegisterData.firstName, "{backspace}", "", RegisterData.pwd, 
+            gender.male, RegisterData.firstName, "{backspace}", null, RegisterData.pwd, 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
         
         ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.lastNameRequiredErrorMessage);
@@ -120,7 +120,7 @@ describe('001 register tests', () => {
         const RegisterForm = Register.startRegistration();
 
         RegisterForm.fillRegistrationForm(
-            gender.male, true, RegisterData.firstName, RegisterData.lastName, Register.createRandomEmail(), RegisterData.pwd, 
+            gender.male, RegisterData.firstName, RegisterData.lastName, Register.createRandomEmail(), RegisterData.pwd, 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
 
         const LoggedUserPage = RegisterForm.createAccountSuccess();
@@ -128,15 +128,66 @@ describe('001 register tests', () => {
         LoggedUserPage.validateUserLoggedInUsername(RegisterData.fullName);
     })
 
-    it('15 Register user with invalid email change', () => {
+    it('15 Register user with invalid email changed', () => {
         const Register = new RegisterPage();
         const mainpage = new MainPage();
         const RegisterForm = Register.startRegistration();
 
         RegisterForm.fillRegistrationForm(
-            gender.male, true, RegisterData.firstName, RegisterData.lastName, Register.createRandomString(5), RegisterData.pwd, 
+            gender.male, RegisterData.firstName, RegisterData.lastName, Register.createRandomString(5), RegisterData.pwd, 
             RegisterData.dobDay, RegisterData.dobMonth, RegisterData.dobYear);
 
         ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.emailIsInvalidErrorMessage);
+    })
+
+    it('16 Register user without select date of birth day', () => {
+        const Register = new RegisterPage();
+        const mainpage = new MainPage();
+        const RegisterForm = Register.startRegistration();
+
+        RegisterForm.fillRegistrationForm(
+            gender.male, RegisterData.firstName, RegisterData.lastName, null, RegisterData.pwd, 
+            '-', RegisterData.dobMonth, RegisterData.dobYear);
+
+        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.invalidDobErrorMessage);
+    })
+
+    it('17 Register user without select date of birth month', () => {
+        const Register = new RegisterPage();
+        const mainpage = new MainPage();
+        const RegisterForm = Register.startRegistration();
+
+        RegisterForm.fillRegistrationForm(
+            gender.male, RegisterData.firstName, RegisterData.lastName, null, RegisterData.pwd, 
+            RegisterData.dobDay, '-', RegisterData.dobYear);
+
+        ErrorMessage.validateErrorMessage(mainpage.elements.detailErrorMessageLabel(), feedbackMessages.invalidDobErrorMessage);
+    })
+
+    it('18 Register user without select date of birth year', () => {
+        const Register = new RegisterPage();
+        const mainpage = new MainPage();
+        const RegisterForm = Register.startRegistration();
+
+        RegisterForm.fillRegistrationForm(
+            gender.male, RegisterData.firstName, RegisterData.lastName, null, RegisterData.pwd, 
+            RegisterData.dobDay, RegisterData.dobMonth, '-');
+
+        const LoggedUserPage = RegisterForm.createAccountSuccess();
+        LoggedUserPage.validateUserLoggedInURL();
+        LoggedUserPage.validateUserLoggedInUsername(RegisterData.fullName);
+    })
+
+    it('19 Register user without date of birth', () => {
+        const Register = new RegisterPage();
+        const RegisterForm = Register.startRegistration();
+
+        RegisterForm.fillRegistrationForm(
+            gender.male, RegisterData.firstName, RegisterData.lastName, null, RegisterData.pwd, 
+            '-', '-', '-');
+        
+        const LoggedUserPage = RegisterForm.createAccountSuccess();
+        LoggedUserPage.validateUserLoggedInURL();
+        LoggedUserPage.validateUserLoggedInUsername(RegisterData.fullName);
     })
 })

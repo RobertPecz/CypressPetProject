@@ -27,7 +27,7 @@ class CreateAccountPage {
         accountCreatedLabel : () => cy.get("p.alert.alert-success")
     }
 
-    fillRegistrationForm(gender: "male" | "female", isNewEmail: boolean, firstName: string, lastName: string, email: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
+    fillRegistrationForm(gender: "male" | "female", firstName: string, lastName: string, email: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
         
         if(gender.toLowerCase() == "male") {
             this.elements.mrRadioButton().click();
@@ -39,11 +39,11 @@ class CreateAccountPage {
             throw new Error("Only male and female can choose as gender.");
         }
 
-        this.populateRegistrationDataAndSubmit(isNewEmail, firstName, lastName, email, pwd, dobDay, dobMonth, dobYear);
+        this.populateRegistrationDataAndSubmit(firstName, lastName, email, pwd, dobDay, dobMonth, dobYear);
     }
 
-    fillRegistrationFormNoGender(isNewEmail: boolean, firstName: string, lastName: string, email: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
-        this.populateRegistrationDataAndSubmit(isNewEmail, firstName, lastName, email, pwd, dobDay, dobMonth, dobYear);
+    fillRegistrationFormNoGender(firstName: string, lastName: string, email: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
+        this.populateRegistrationDataAndSubmit(firstName, lastName, email, pwd, dobDay, dobMonth, dobYear);
     }
 
     createAccountSuccess() {
@@ -51,10 +51,10 @@ class CreateAccountPage {
         return new LoggedUserPage();
     }
 
-    private populateRegistrationDataAndSubmit(isNewEmail: boolean, firstName: string, lastName: string, email: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
+    private populateRegistrationDataAndSubmit(firstName: string, lastName: string, email: string, pwd: string, dobDay: string, dobMonth: string, dobYear: string) {
         this.elements.firstNameInput().type(firstName); 
         this.elements.lastNameInput().type(lastName);
-        if(!isNewEmail) {
+        if(email == null) {
             this.elements.emailInput().should("have.value", this.randomEmailString);
         }
         else {
