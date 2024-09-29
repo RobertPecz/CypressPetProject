@@ -3,7 +3,7 @@ import ProductData from '../fixtures/products.json';
 import LoginPage from '../pages/mainPage';
 import ProductsPage from '../pages/productsPage';
 
-describe('002 Buy product tests', () => {
+describe('002 Buy product tests', () => { 
     const Login = new LoginPage();
     beforeEach(() => {
         Login.visit();
@@ -14,6 +14,13 @@ describe('002 Buy product tests', () => {
 
     it('01 Buy one product', () => {
         const Product = new ProductsPage();
-        Product.buyProductProcess(ProductData.titleWomen, ProductData.quantityOne, ProductData.sizeLarge);
+        Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleFirst, ProductData.quantityOne, ProductData.sizeLarge);
+        Product.checkoutProductProcess();
     });
+
+    it('02 Buy multiple products same product', () =>{
+        const Product = new ProductsPage();
+        Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleSecond, ProductData.quantityMultiple, ProductData.sizeLarge);
+        Product.checkoutProductProcess();
+    })
 });

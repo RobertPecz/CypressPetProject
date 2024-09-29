@@ -3,8 +3,8 @@ import feedbackMessages from "../fixtures/feedbackMessages.json";
 class ProductsPage {
     
     elements = {
-        womenButton : (title: string) => cy.get(`a[title='${title}']`),
-        productAvailableWithDiffOpObject : () => cy.get("a[class='product-name'][title='Blouse']"),
+        womenButton : (title: string) => cy.get(`a[title='${title}']`), 
+        productAvailableObject : (productTitle : string) => cy.get(`div[class='right-block'] > h5 > a[title='${productTitle}']`),       
         productNoLongerStockLabel : () => cy.get("span#availability_value.label.label-warning"),
         productInStockLabel : () => cy.get("span#availability_value.label.label-success"),
         sizeDropDowndown : () => cy.get("select#group_1"),
@@ -25,8 +25,8 @@ class ProductsPage {
         this.elements.womenButton(title).click();
     }
 
-    selectDressWhichInStock() {
-        this.elements.productAvailableWithDiffOpObject().click();
+    selectDressWhichInStock(productTitle : string) {
+        this.elements.productAvailableObject(productTitle).click();
     }
 
     selectQuanityAndSize(quantity: string, size: string) {
@@ -51,13 +51,11 @@ class ProductsPage {
         this.elements.orderSuccessLabel().should("have.text", feedbackMessages.orderConfirmedMessage)
     }
 
-    buyProductProcess(title: string, quantity: string, size: string) {
+    buyProductProcess(title: string, productTitle: string, quantity: string, size: string) {
         this.navigateToWomenDressCategory(title);
-        this.selectDressWhichInStock();
-        if(size != ""+"S" || size != ""+"M" || size != ""+"L") {
-            this.selectQuanityAndSize(quantity, size);
-        }
-        this.checkoutProductProcess();
+        this.selectDressWhichInStock(productTitle);
+        this.selectQuanityAndSize(quantity, size);
+        //this.checkoutProductProcess();
     }
 }
 

@@ -2,10 +2,11 @@
     "titleWomen": "Women",
     "titleDresses": "Dresses",
     "titleTshirts": "T-Shirts",
+    "productTitleFirst": "Blouse",
+    "productTitleSecond": "Printed Chiffon Dress",
     "quantityOne": "1",
     "quantityMultiple": "2",
     "sizeSmall": "S", 
     "sizeMedium": "M", 
-    "sizeLarge": "L"
-    
+    "sizeLarge": "L"  
 }
