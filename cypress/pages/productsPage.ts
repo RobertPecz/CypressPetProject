@@ -3,8 +3,10 @@ import feedbackMessages from "../fixtures/feedbackMessages.json";
 class ProductsPage {
     
     elements = {
-        womenButton : (title: string) => cy.get(`a[title='${title}']`),
-        productAvailableWithDiffOpObject : () => cy.get("a[class='product-name'][title='Blouse']"),
+        womenButton : (title: string) => cy.get(`a[title='${title}']`), 
+        
+        //div[class='right-block'] >h5 > *:is(.product-name)
+        productAvailableWithDiffOpObjectOne : (productTitle : string) => cy.get(`div[class='right-block'] > a[class='product-name'][title='${productTitle}'], div[class='right-block'] > span[class='availability'] > span[class='available-dif']`),
         productNoLongerStockLabel : () => cy.get("span#availability_value.label.label-warning"),
         productInStockLabel : () => cy.get("span#availability_value.label.label-success"),
         sizeDropDowndown : () => cy.get("select#group_1"),
@@ -25,8 +27,8 @@ class ProductsPage {
         this.elements.womenButton(title).click();
     }
 
-    selectDressWhichInStock() {
-        this.elements.productAvailableWithDiffOpObject().click();
+    selectDressWhichInStock(productTitle : string) {
+        this.elements.productAvailableWithDiffOpObjectOne(productTitle).click();
     }
 
     selectQuanityAndSize(quantity: string, size: string) {
@@ -51,13 +53,11 @@ class ProductsPage {
         this.elements.orderSuccessLabel().should("have.text", feedbackMessages.orderConfirmedMessage)
     }
 
-    buyProductProcess(title: string, quantity: string, size: string) {
+    buyProductProcess(title: string, productTitle: string, quantity: string, size: string) {
         this.navigateToWomenDressCategory(title);
-        this.selectDressWhichInStock();
-        if(size != ""+"S" || size != ""+"M" || size != ""+"L") {
-            this.selectQuanityAndSize(quantity, size);
-        }
-        this.checkoutProductProcess();
+        this.selectDressWhichInStock(productTitle);
+        this.selectQuanityAndSize(quantity, size);
+        //this.checkoutProductProcess();
     }
 }
 
