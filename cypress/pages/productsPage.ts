@@ -4,9 +4,7 @@ class ProductsPage {
     
     elements = {
         womenButton : (title: string) => cy.get(`a[title='${title}']`), 
-        
-        //div[class='right-block'] >h5 > *:is(.product-name)
-        productAvailableWithDiffOpObjectOne : (productTitle : string) => cy.get(`div[class='right-block'] > a[class='product-name'][title='${productTitle}'], div[class='right-block'] > span[class='availability'] > span[class='available-dif']`),
+        productAvailableObject : (productTitle : string) => cy.get(`div[class='right-block'] > h5 > a[title='${productTitle}']`),       
         productNoLongerStockLabel : () => cy.get("span#availability_value.label.label-warning"),
         productInStockLabel : () => cy.get("span#availability_value.label.label-success"),
         sizeDropDowndown : () => cy.get("select#group_1"),
@@ -28,7 +26,7 @@ class ProductsPage {
     }
 
     selectDressWhichInStock(productTitle : string) {
-        this.elements.productAvailableWithDiffOpObjectOne(productTitle).click();
+        this.elements.productAvailableObject(productTitle).click();
     }
 
     selectQuanityAndSize(quantity: string, size: string) {
