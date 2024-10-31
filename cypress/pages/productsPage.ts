@@ -10,6 +10,7 @@ class ProductsPage {
         sizeDropDowndown : () => cy.get("select#group_1"),
         quantityInput : () => cy.get("input#quantity_wanted"),
         addToCartButton : () => cy.get("button[name='Submit']"),
+        continueShoppingButton : () => cy.get("span[title='Continue shopping']"),
         proceedToCheckoutPopupButton : () => cy.get("a[class='btn btn-default button button-medium'][title='Proceed to checkout']"),
         proceedToCheckoutButton : () => cy.get("a[class='button btn btn-default standard-checkout button-medium'][title='Proceed to checkout']"),
         proceedToCheckoutAddressButton : () => cy.get("button[name='processAddress']"),
@@ -29,13 +30,16 @@ class ProductsPage {
         this.elements.productAvailableObject(productTitle).click();
     }
 
-    selectQuanityAndSize(quantity: string, size: string) {
+    selectQuantityAndSize(quantity: string, size: string) {
         this.elements.sizeDropDowndown().select(size);
         this.elements.quantityInput().type(quantity);
     }
 
-    checkoutProductProcess() {
+    addProductToCart() {
         this.elements.addToCartButton().click();
+    }
+
+    checkoutProductProcess() {
         //Proceed to checkout on the popup page
         this.elements.proceedToCheckoutPopupButton().click();
         //01. Summary page
@@ -54,7 +58,8 @@ class ProductsPage {
     buyProductProcess(title: string, productTitle: string, quantity: string, size: string) {
         this.navigateToWomenDressCategory(title);
         this.selectDressWhichInStock(productTitle);
-        this.selectQuanityAndSize(quantity, size);
+        this.selectQuantityAndSize(quantity, size);
+        this.addProductToCart();
     }
 }
 

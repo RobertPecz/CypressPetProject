@@ -30,4 +30,8 @@ describe('002 Buy product tests', () => {
         Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleSecond, ProductData.quantityOne, ProductData.sizeMedium);
         Product.checkoutProductProcess();
     })
+
+    it('04 Add product to the cart, remove from the cart', () => {
+        
+    })
 });
