@@ -18,9 +18,16 @@ describe('002 Buy product tests', () => {
         Product.checkoutProductProcess();
     });
 
-    it('02 Buy multiple products same product', () =>{
+    it('02 Buy multiple products same product', () => {
         const Product = new ProductsPage();
         Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleSecond, ProductData.quantityMultiple, ProductData.sizeLarge);
+        Product.checkoutProductProcess();
+    })
+
+    it('03 Buy multiple products different product', () => {
+        const Product = new ProductsPage();
+        Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleFirst, ProductData.quantityOne, ProductData.sizeLarge);
+        Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleSecond, ProductData.quantityOne, ProductData.sizeMedium);
         Product.checkoutProductProcess();
     })
 });

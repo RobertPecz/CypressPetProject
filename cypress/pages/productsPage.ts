@@ -3,7 +3,7 @@ import feedbackMessages from "../fixtures/feedbackMessages.json";
 class ProductsPage {
     
     elements = {
-        womenButton : (title: string) => cy.get(`a[title='${title}']`), 
+        womenButton : (title: string) => cy.get(`a[title='${title}'][class='sf-with-ul']`),
         productAvailableObject : (productTitle : string) => cy.get(`div[class='right-block'] > h5 > a[title='${productTitle}']`),       
         productNoLongerStockLabel : () => cy.get("span#availability_value.label.label-warning"),
         productInStockLabel : () => cy.get("span#availability_value.label.label-success"),
@@ -55,7 +55,6 @@ class ProductsPage {
         this.navigateToWomenDressCategory(title);
         this.selectDressWhichInStock(productTitle);
         this.selectQuanityAndSize(quantity, size);
-        //this.checkoutProductProcess();
     }
 }
 
