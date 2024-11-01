@@ -1,6 +1,6 @@
 class ErrorMessage {
     static validateErrorMessage(errorLabel: Cypress.Chainable<JQuery<HTMLElement>>, errorMessage: string) {
-        errorLabel.contains(errorMessage)
+        errorLabel.should('contain.text', errorMessage);
     }
 }
 
