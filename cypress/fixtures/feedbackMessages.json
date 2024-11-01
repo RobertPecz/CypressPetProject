@@ -13,5 +13,6 @@
     "firstNameRequiredErrorMessage": "firstname is required.",
     "lastNameRequiredErrorMessage": "lastname is required.",
     "emailIsInvalidErrorMessage": "email is invalid.",
-    "invalidDobErrorMessage": "Invalid date of birth."
+    "invalidDobErrorMessage": "Invalid date of birth.",
+    "emptyShoppingCartWarningMessage": "Your shopping cart is empty."
 }

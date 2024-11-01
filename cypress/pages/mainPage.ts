@@ -9,7 +9,8 @@ class MainPage {
         passwordTextbox : () => cy.get("input#passwd"),
         loginButton : () => cy.get("button#SubmitLogin"),
         generalErrorLabel : () => cy.get("div[class='alert alert-danger'] > p"),
-        detailErrorMessageLabel : () => cy.get("div[class='alert alert-danger'] > ol > li")
+        detailErrorMessageLabel : () => cy.get("div[class='alert alert-danger'] > ol > li"),
+        generalWarningLabel : () => cy.get("p.alert.alert-warning")
     }
 
     visit() {
