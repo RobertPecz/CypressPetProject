@@ -3,7 +3,7 @@ import ProductData from '../fixtures/products.json';
 import LoginPage from '../pages/mainPage';
 import ProductsPage from '../pages/productsPage';
 import ErrorMessage from '../pages/errorMessages';
-import feedbackMessages from "../fixtures/feedbackMessages.json";
+import FeedbackMessages from "../fixtures/feedbackMessages.json";
 
 describe('002 Buy product tests', () => { 
     const Login = new LoginPage();
@@ -38,6 +38,6 @@ describe('002 Buy product tests', () => {
         const mainpage = new LoginPage();
         Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleFirst, ProductData.quantityOne, ProductData.sizeLarge);
         Product.deleteProductFromCart();
-        ErrorMessage.validateErrorMessage(mainpage.elements.generalWarningLabel(), feedbackMessages.emptyShoppingCartWarningMessage);
+        ErrorMessage.validateErrorMessage(mainpage.elements.generalWarningLabel(), FeedbackMessages.emptyShoppingCartWarningMessage);
     })
 });

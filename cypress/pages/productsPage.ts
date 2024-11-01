@@ -1,4 +1,4 @@
-import feedbackMessages from "../fixtures/feedbackMessages.json";
+import FeedbackMessages from "../fixtures/feedbackMessages.json";
 
 class ProductsPage {
     
@@ -55,7 +55,7 @@ class ProductsPage {
         //05. Payment page
         this.elements.bankwirePayButton().click();
         this.elements.confirmMyOrderButton().click();
-        this.elements.orderSuccessLabel().should("have.text", feedbackMessages.orderConfirmedMessage)
+        this.elements.orderSuccessLabel().should("have.text", FeedbackMessages.orderConfirmedMessage)
     }
 
     deleteProductFromCart() {
