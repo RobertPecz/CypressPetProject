@@ -3,7 +3,7 @@ import ProductData from '../fixtures/products.json';
 import LoginPage from '../pages/mainPage';
 import ProductsPage from '../pages/productsPage';
 import ErrorMessage from '../pages/errorMessages';
-import feedbackMessages from "../fixtures/feedbackMessages.json";
+import FeedbackMessages from "../fixtures/feedbackMessages.json";
 
 describe('002 Buy product tests', () => { 
     const Login = new LoginPage();
@@ -33,11 +33,20 @@ describe('002 Buy product tests', () => {
         Product.checkoutProductProcess();
     })
 
-    it.only('04 Add product to the cart, remove from the cart', () => {
+    it('04 Add product to the cart, remove from the cart', () => {
         const Product = new ProductsPage();
         const mainpage = new LoginPage();
         Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleFirst, ProductData.quantityOne, ProductData.sizeLarge);
         Product.deleteProductFromCart();
-        ErrorMessage.validateErrorMessage(mainpage.elements.generalWarningLabel(), feedbackMessages.emptyShoppingCartWarningMessage);
+        Product.validateShoppingCartIsEmpty();
+        ErrorMessage.validateErrorMessage(mainpage.elements.generalWarningLabel(), FeedbackMessages.emptyShoppingCartWarningMessage);
+    })
+
+    it('05 Add multiple product to the cart, remove one product', () => {
+        const Product = new ProductsPage();
+        Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleFirst, ProductData.quantityOne, ProductData.sizeLarge);
+        Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleSecond, ProductData.quantityOne, ProductData.sizeMedium);
+        Product.deleteProductFromCart();
+        Product.validateNumberOfElementAfterDeleteProductFromCart(1);
     })
 });
