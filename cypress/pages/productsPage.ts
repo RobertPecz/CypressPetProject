@@ -13,7 +13,7 @@ class ProductsPage {
         continueShoppingButton : () => cy.get("span[title='Continue shopping']"),
         shoppingCartButton : () => cy.get("a[title='View my shopping cart']"),
         shoppingCartDeleteButton : () => cy.get("a[title='Delete']"),
-        shoppingCartElement : () => cy.get("tr.cart_item.last_item.first_item.address_5599.odd"),
+        shoppingCartElements : () => cy.get("tr[class*='cart_item']"),
         proceedToCheckoutPopupButton : () => cy.get("a[class='btn btn-default button button-medium'][title='Proceed to checkout']"),
         proceedToCheckoutButton : () => cy.get("a[class='button btn btn-default standard-checkout button-medium'][title='Proceed to checkout']"),
         proceedToCheckoutAddressButton : () => cy.get("button[name='processAddress']"),
@@ -61,8 +61,7 @@ class ProductsPage {
     deleteProductFromCart() {
         this.elements.continueShoppingButton().click();
         this.elements.shoppingCartButton().click();
-        this.elements.shoppingCartDeleteButton().click();
-        this.elements.shoppingCartElement().should('not.exist');
+        this.elements.shoppingCartDeleteButton().first().click();
     }
 
     buyProductProcess(title: string, productTitle: string, quantity: string, size: string) {
@@ -70,6 +69,14 @@ class ProductsPage {
         this.selectDressWhichInStock(productTitle);
         this.selectQuantityAndSize(quantity, size);
         this.addProductToCart();
+    }
+
+    validateShoppingCartIsEmpty() {
+        this.elements.shoppingCartElements().should('not.exist');
+    }
+
+    validateNumberOfElementAfterDeleteProductFromCart(howManyItemShouldHave: number) {
+        this.elements.shoppingCartElements().should('have.length', howManyItemShouldHave);
     }
 }
 
