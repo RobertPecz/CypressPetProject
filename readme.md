@@ -11,4 +11,4 @@ There are two primary reasons for my interest. First, I have worked with Seleniu
 Second, gaining expertise in these technologies provides a strong advantage in job interviews, allowing me to effectively demonstrate my relevant, up-to-date knowledge.
 
 ## Can I contribute?
-No, if it's not a must, I like to repository to keep myself. If you like to help me, please raise a ticket on the issues tab.
+No, if it's not a must, I like to keep this repository to myself. If you like to help me, please raise a ticket on the issues tab.
