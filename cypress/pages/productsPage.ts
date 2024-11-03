@@ -7,13 +7,15 @@ class ProductsPage {
         productAvailableObject : (productTitle : string) => cy.get(`div[class='right-block'] > h5 > a[title='${productTitle}']`),       
         productNoLongerStockLabel : () => cy.get("span#availability_value.label.label-warning"),
         productInStockLabel : () => cy.get("span#availability_value.label.label-success"),
+        productCurrentAmountInShoppingCartLabel : () => cy.get("span#summary_products_quantity"),
         sizeDropDowndown : () => cy.get("select#group_1"),
         quantityInput : () => cy.get("input#quantity_wanted"),
-        addToCartButton : () => cy.get("button[name='Submit']"),
+        addToShoppingCartButton : () => cy.get("button[name='Submit']"),
         continueShoppingButton : () => cy.get("span[title='Continue shopping']"),
         shoppingCartButton : () => cy.get("a[title='View my shopping cart']"),
         shoppingCartDeleteButton : () => cy.get("a[title='Delete']"),
         shoppingCartElements : () => cy.get("tr[class*='cart_item']"),
+        shoppingCartPlusButton : () => cy.get("a[class*='button-plus']"),
         proceedToCheckoutPopupButton : () => cy.get("a[class='btn btn-default button button-medium'][title='Proceed to checkout']"),
         proceedToCheckoutButton : () => cy.get("a[class='button btn btn-default standard-checkout button-medium'][title='Proceed to checkout']"),
         proceedToCheckoutAddressButton : () => cy.get("button[name='processAddress']"),
@@ -35,11 +37,11 @@ class ProductsPage {
 
     selectQuantityAndSize(quantity: string, size: string) {
         this.elements.sizeDropDowndown().select(size);
-        this.elements.quantityInput().type(quantity);
+        this.elements.quantityInput().clear().type(quantity);
     }
 
-    addProductToCart() {
-        this.elements.addToCartButton().click();
+    addProductToShoppingCart() {
+        this.elements.addToShoppingCartButton().click();
     }
 
     checkoutProductProcess() {
@@ -58,9 +60,12 @@ class ProductsPage {
         this.elements.orderSuccessLabel().should("have.text", FeedbackMessages.orderConfirmedMessage)
     }
 
-    deleteProductFromCart() {
+    navigateToShoppingCart() {
         this.elements.continueShoppingButton().click();
         this.elements.shoppingCartButton().click();
+    }
+
+    deleteProductFromShoppingCart() {
         this.elements.shoppingCartDeleteButton().first().click();
     }
 
@@ -68,7 +73,13 @@ class ProductsPage {
         this.navigateToWomenDressCategory(title);
         this.selectDressWhichInStock(productTitle);
         this.selectQuantityAndSize(quantity, size);
-        this.addProductToCart();
+        this.addProductToShoppingCart();
+    }
+
+    addMoreProductInShoppingCart(amountIntput : string)
+    {
+        this.elements.shoppingCartPlusButton().click();
+        this.elements.productCurrentAmountInShoppingCartLabel().should('contain.text', amountIntput);
     }
 
     validateShoppingCartIsEmpty() {
