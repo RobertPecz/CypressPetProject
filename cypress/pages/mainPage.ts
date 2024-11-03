@@ -14,7 +14,7 @@ class MainPage {
     }
 
     visit() {
-        cy.visit(URL.mainpageURL);
+        cy.visit('/');
     }
 
     clickOnSignInButton() {
