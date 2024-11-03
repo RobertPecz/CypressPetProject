@@ -37,7 +37,7 @@ describe('002 Buy product tests', () => {
         const Product = new ProductsPage();
         const mainpage = new LoginPage();
         Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleFirst, ProductData.quantityOne, ProductData.sizeLarge);
-        Product.deleteProductFromCart();
+        Product.deleteProductFromShoppingCart();
         Product.validateShoppingCartIsEmpty();
         ErrorMessage.validateErrorMessage(mainpage.elements.generalWarningLabel(), FeedbackMessages.emptyShoppingCartWarningMessage);
     })
@@ -46,7 +46,15 @@ describe('002 Buy product tests', () => {
         const Product = new ProductsPage();
         Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleFirst, ProductData.quantityOne, ProductData.sizeLarge);
         Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleSecond, ProductData.quantityOne, ProductData.sizeMedium);
-        Product.deleteProductFromCart();
+        Product.navigateToShoppingCart();
+        Product.deleteProductFromShoppingCart();
         Product.validateNumberOfElementAfterDeleteProductFromCart(1);
+    })
+
+    it.only('06 Add one product to the cart, add more in the cart view', () => {
+        const Product = new ProductsPage();
+        Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleFirst, ProductData.quantityOne, ProductData.sizeLarge);
+        Product.navigateToShoppingCart();
+        Product.addMoreProductInShoppingCart("2");
     })
 });
