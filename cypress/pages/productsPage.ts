@@ -8,7 +8,8 @@ class ProductsPage {
         productNoLongerStockLabel : () => cy.get("span#availability_value.label.label-warning"),
         productInStockLabel : () => cy.get("span#availability_value.label.label-success"),
         productCurrentAmountInShoppingCartLabel : () => cy.get("span#summary_products_quantity"),
-        sizeDropDowndown : () => cy.get("select#group_1"),
+        sizeDropDown : () => cy.get("select#group_1"),
+        sizeDropDownValue : (size : string) => cy.get(`option[title='${size}'`),
         quantityInput : () => cy.get("input#quantity_wanted"),
         addToShoppingCartButton : () => cy.get("button[name='Submit']"),
         continueShoppingButton : () => cy.get("span[title='Continue shopping']"),
@@ -24,7 +25,8 @@ class ProductsPage {
         bankwirePayButton : () => cy.get("a.bankwire"),
         chequePayButton : () => cy.get("a.cheque"),
         confirmMyOrderButton : () => cy.get("button[class='button btn btn-default button-medium'][type='submit']"),
-        orderSuccessLabel : () => cy.get("p.alert.alert-success")
+        orderSuccessLabel : () => cy.get("p.alert.alert-success"),
+        notEnoughProductInStockLabel : () => cy.get("p.fancybox-error")
     }
 
     navigateToWomenDressCategory(title: string) {
@@ -36,7 +38,7 @@ class ProductsPage {
     }
 
     selectQuantityAndSize(quantity: string, size: string) {
-        this.elements.sizeDropDowndown().select(size);
+        this.elements.sizeDropDown().select(size);
         this.elements.quantityInput().clear().type(quantity);
     }
 
@@ -88,6 +90,10 @@ class ProductsPage {
 
     validateNumberOfElementAfterDeleteProductFromCart(howManyItemShouldHave: number) {
         this.elements.shoppingCartElements().should('have.length', howManyItemShouldHave);
+    }
+
+    validateNotEnoughProductInStock() {
+        this.elements.notEnoughProductInStockLabel().should('contain.text', FeedbackMessages.notEnoughProductInStock);
     }
 }
 

@@ -14,5 +14,6 @@
     "lastNameRequiredErrorMessage": "lastname is required.",
     "emailIsInvalidErrorMessage": "email is invalid.",
     "invalidDobErrorMessage": "Invalid date of birth.",
-    "emptyShoppingCartWarningMessage": "Your shopping cart is empty."
+    "emptyShoppingCartWarningMessage": "Your shopping cart is empty.",
+    "notEnoughProductInStock": "There isn't enough product in stock."
 }

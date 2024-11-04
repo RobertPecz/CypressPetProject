@@ -6,6 +6,7 @@
     "productTitleSecond": "Printed Chiffon Dress",
     "quantityOne": "1",
     "quantityMultiple": "2",
+    "quantityMoreThanInStock": "10000",
     "sizeSmall": "S", 
     "sizeMedium": "M", 
     "sizeLarge": "L"  

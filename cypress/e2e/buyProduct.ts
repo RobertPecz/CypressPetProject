@@ -51,10 +51,16 @@ describe('002 Buy product tests', () => {
         Product.validateNumberOfElementAfterDeleteProductFromCart(1);
     })
 
-    it.only('06 Add one product to the cart, add more in the cart view', () => {
+    it('06 Add one product to the cart, add more in the cart view', () => {
         const Product = new ProductsPage();
         Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleFirst, ProductData.quantityOne, ProductData.sizeLarge);
         Product.navigateToShoppingCart();
         Product.addMoreProductInShoppingCart("2");
+    })
+
+    it.only('07 Add more product to the cart what is in the stock.', () => {
+        const Product = new ProductsPage();
+        Product.buyProductProcess(ProductData.titleWomen, ProductData.productTitleFirst, ProductData.quantityMoreThanInStock, ProductData.sizeLarge);
+        Product.validateNotEnoughProductInStock();
     })
 });
